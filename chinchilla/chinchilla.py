@@ -12,15 +12,25 @@ current_query = {}
 page_soup = None
 
 def visit(url):
+    """Visit/open page"""
     __send_request(url)
 
 def page_content():
+    """Get the current page content"""
     return current_page
 
 def page_url():
+    """Get the url of the current page"""
     return current_page_url
 
 def fill_in(field, value=None):
+    """Simulate filling in a form input field.
+    Field will be matched, first on id, then on exact name attribute, and lastly fuzzy (contains) match on name attriubte.
+    The value is optional, if missing you will be prompted for it at runtime.
+
+    Will not really fill out the form on the page.
+    Prints message if field could not be found.
+    """
     global current_query
     q = "#{name},input[name={name}],input[name*={name}]".format(name=field)
     field = page_soup.select_one(q)
@@ -31,6 +41,12 @@ def fill_in(field, value=None):
         print "Could not find field matching '{name}'".format(name=field)
 
 def submit():
+    """Submits form containing the input fields filled out using 'fill_in'.
+    Will include all hidden fields in the form.
+    
+    Can handle GET forms.
+    If a form cannot be found an error message will be printed.
+    """
     global current_query, current_page_url, current_page, page_soup
     q = "input[name={name}]".format(name=current_query.keys()[0])
     elm = page_soup.select_one(q)
@@ -54,6 +70,11 @@ def submit():
         print "Unable to find form :("
 
 def click_link(selector):
+    """Follow link on page.
+    Will try ID, and class first, otherwise it will look for a link with exact matching text.
+
+    Prints error message if no link could be found.
+    """
     q = "#{sel},a[class={sel}]".format(sel=selector)
     link = page_soup.select_one(q)
     url=None
@@ -82,6 +103,7 @@ def __send_request(url, data=None):
         __update_globals(e.geturl(), e.read())
 
 def __update_globals(url, content):
+    """Updates and resets global variables"""
     global current_query, current_page_url, current_page, page_soup
     current_page = content
     page_soup = BeautifulSoup(content, "html.parser")
