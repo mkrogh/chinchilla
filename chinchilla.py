@@ -39,10 +39,14 @@ def submit():
     if form:
         hidden_fields = form.select("input[type=hidden]")
         for field in hidden_fields:
-            current_query[field["name"]]=field["value"]
+            if "value" in field:
+                current_query[field["name"]]=field["value"]
         url = urljoin(current_page_url, form["action"])
         data = urllib.urlencode(current_query)
-        __send_request(url,data)
+        if "method" in form and form["method"].lower() == "get":
+            __send_request(url+"?"+data)
+        else:
+            __send_request(url,data)
 
 def __send_request(url, data=None):
     try:
