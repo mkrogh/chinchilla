@@ -8,6 +8,7 @@ such as pages behind a login.
 
 Currently chinchilla is sequential, and relies on globals, so I'm quite sure it is not thread safe.
 
+Chinchilla needs beautiful soup to be installed.
 
 Usage
 -------
