@@ -11,6 +11,12 @@ current_page = None
 current_query = {}
 page_soup = None
 
+
+"""
+Chinchilla is a convinience library for interacting with web pages.
+It allows you to visit pages, fill out forms and follow links.
+"""
+
 def visit(url):
     """Visit/open page"""
     __send_request(url)
@@ -41,7 +47,7 @@ def fill_in(field, value=None):
         print "Could not find field matching '{name}'".format(name=field)
 
 def submit():
-    """Submits form containing the input fields filled out using 'fill_in'.
+    """Submits the form containing the input fields filled out using 'fill_in'.
     Will include all hidden fields in the form.
     
     Can handle GET forms.
