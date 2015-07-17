@@ -20,8 +20,9 @@ visit("http://localhost:8000/login/")
 fill_in("username", "markus")
 fill_in("password", "secret")
 submit()
-visit("http://localhost:8000/secret_page/")
+click_link("Secret page")
 print page_content()
+print page_url()
 ```
 
 `fill_in("username", "markus")` tries to find an input field based on the name supplied by:
@@ -44,7 +45,6 @@ as long as that interaction does not require JavaScript.
 TODO
 ----
 
-- `click_link` functionallity
 - Something like capybaras `within` for easier selection
 - `has_content` - check if the page contains.
 - `has_element` - check if a given css selector exists on page

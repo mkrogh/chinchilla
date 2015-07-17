@@ -17,6 +17,9 @@ def visit(url):
 def page_content():
     return current_page
 
+def page_url():
+    return current_page_url
+
 def fill_in(field, value=None):
     global current_query
     q = "#{name},input[name={name}],input[name*={name}]".format(name=field)
@@ -39,14 +42,35 @@ def submit():
     if form:
         hidden_fields = form.select("input[type=hidden]")
         for field in hidden_fields:
-            if "value" in field:
+            if field.has_attr("value"):
                 current_query[field["name"]]=field["value"]
         url = urljoin(current_page_url, form["action"])
         data = urllib.urlencode(current_query)
-        if "method" in form and form["method"].lower() == "get":
+        if form.has_attr("method") and form["method"].lower() == "get":
             __send_request(url+"?"+data)
         else:
             __send_request(url,data)
+    else:
+        print "Unable to find form :("
+
+def click_link(selector):
+    q = "#{sel},a[class={sel}]".format(sel=selector)
+    link = page_soup.select_one(q)
+    url=None
+    if link and link.has_attr("href"):
+        url = link["href"]
+    else:
+        links = page_soup.find_all("a", text=selector)
+        for link in links:
+            if link.has_attr("href"):
+              url = link["href"]
+              break
+    if url:
+        url = urljoin(current_page_url, url)
+        visit(url)
+    else:
+        print "Could not find link for {sel}".format(sel=selector)
+
 
 def __send_request(url, data=None):
     try:

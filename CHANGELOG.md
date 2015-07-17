@@ -9,4 +9,6 @@ Changelog
   - `visit(url)` open a page
   - `fill_in(field, value)` fill in an input field with value
   - `submit()` submits the form that has been filled in
+  - `click_link("Login")` follows link with id, class or text matching argument
   - `page_content()` returns the current page's content
+  - `page_url()` returns the current page's url
