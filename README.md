@@ -47,6 +47,5 @@ TODO
 ----
 
 - Something like capybaras `within` for easier selection
-- `has_content` - check if the page contains.
 - `has_element` - check if a given css selector exists on page
 - Maybe lazy instantiation of beautiful soup
