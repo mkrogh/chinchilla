@@ -21,6 +21,7 @@ fill_in("username", "markus")
 fill_in("password", "secret")
 submit()
 click_link("Secret page")
+print has_content("Secret")
 print page_content()
 print page_url()
 ```

@@ -12,3 +12,4 @@ Changelog
   - `click_link("Login")` follows link with id, class or text matching argument
   - `page_content()` returns the current page's content
   - `page_url()` returns the current page's url
+  - `has_content(content)` returns true or false, can be html.

@@ -81,9 +81,11 @@ def click_link(selector):
 
     Prints error message if no link could be found.
     """
-    q = "#{sel},a[class={sel}]".format(sel=selector)
-    link = page_soup.select_one(q)
+    link = None
     url=None
+    if "" not in selector:
+        q = "#{sel},a[class='{sel}']".format(sel=selector)
+        link = page_soup.select_one(q)
     if link and link.has_attr("href"):
         url = link["href"]
     else:
@@ -96,8 +98,17 @@ def click_link(selector):
         url = urljoin(current_page_url, url)
         visit(url)
     else:
-        print "Could not find link for {sel}".format(sel=selector)
+        print "Could not find link for '{sel}'".format(sel=selector)
 
+def has_content(what, silent=False):
+    """
+    Simple check if page_content contains the specified string.
+    Per default an error message will be printed if string is not found.
+    """
+    status = what.lower() in page_content().lower()
+    if not status:
+        print "Could not find {what} on {page}".format(what=what,page=current_page_url)
+    return status
 
 def __send_request(url, data=None):
     try:
