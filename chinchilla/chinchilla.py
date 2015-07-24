@@ -44,7 +44,7 @@ def fill_in(field, value=None):
         value = value or raw_input("What {name} do you want to use? ".format(name=field["name"]))
         current_query[field["name"]] = value
     else:
-        print "Could not find field matching '{name}'".format(name=field)
+        __log("Could not find field matching '{name}'".format(name=field))
 
 def submit():
     """Submits the form containing the input fields filled out using 'fill_in'.
@@ -73,7 +73,7 @@ def submit():
         else:
             __send_request(url,data)
     else:
-        print "Unable to find form :("
+        __log("Unable to find form :(")
 
 def click_link(selector):
     """Follow link on page.
@@ -98,7 +98,7 @@ def click_link(selector):
         url = urljoin(current_page_url, url)
         visit(url)
     else:
-        print "Could not find link for '{sel}'".format(sel=selector)
+        __log("Could not find link for '{sel}'".format(sel=selector))
 
 def has_content(what, silent=False):
     """
@@ -107,7 +107,7 @@ def has_content(what, silent=False):
     """
     status = what.lower() in page_content().lower()
     if not status:
-        print "Could not find {what} on {page}".format(what=what,page=current_page_url)
+        __log("Could not find {what} on {page}".format(what=what,page=current_page_url))
     return status
 
 def __send_request(url, data=None):
@@ -116,7 +116,7 @@ def __send_request(url, data=None):
         content = resp.read()
         __update_globals(resp.geturl(), content)
     except urllib2.HTTPError as e:
-        print "'{error}' on '{page}' visiting: '{url}'".format(error=e.code, page=e.geturl(), url=url)
+        __log("'{error}' on '{page}' visiting: '{url}'".format(error=e.code, page=e.geturl(), url=url))
         __update_globals(e.geturl(), e.read())
 
 def __update_globals(url, content):
@@ -126,3 +126,10 @@ def __update_globals(url, content):
     page_soup = BeautifulSoup(content, "html.parser")
     current_query = {}
     current_page_url = url
+
+def __log(msg):
+    print msg
+
+def _client(new_client):
+    global client
+    client = new_client

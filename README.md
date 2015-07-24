@@ -43,6 +43,13 @@ Having worked with capybara for test cases in ruby, I wanted something with the 
 Chinchilla can be used for anything where you need to interact with a web page,
 as long as that interaction does not require JavaScript.
 
+Testing
+-------
+
+To run the tests just use:
+
+    python -m unittest discover
+
 TODO
 ----
 
@@ -50,3 +57,4 @@ TODO
 - `has_element` - check if a given css selector exists on page
 - Maybe lazy instantiation of beautiful soup
 - Optional error printing
+- Tests, lots of tests
