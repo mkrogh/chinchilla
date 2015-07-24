@@ -3,6 +3,10 @@ Changelog
 
 ## [unreleased][unreleased]
 
+## [0.0.2] - 2015-07-18
+### Added
+- Basic tests
+
 ## [0.0.1] - 2015-07-17
 ### Added
 - Basic functionallity of chinchilla.

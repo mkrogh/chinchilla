@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 longdesc = """\
 Chinchilla
@@ -29,7 +29,7 @@ setup(name='chinchilla',
     version=VERSION,
     description='Python library for easy web page interaction',
     long_description=longdesc,
-    url='https://git.persephone.casadelkrogh.dk/chinchilla.git/',
+    url='https://github.com/mkrogh/chinchilla',
     author='Markus Krogh',
     author_email='markus@nordu.net',
     license='MIT',
